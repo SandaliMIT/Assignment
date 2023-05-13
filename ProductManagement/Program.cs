@@ -3,6 +3,12 @@ using ProductManagement.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Enable CORS
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -15,6 +21,9 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 );
 
 var app = builder.Build();
+
+//Enable CORS
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
